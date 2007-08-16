@@ -1,19 +1,14 @@
-%define name    AutoScan
-%define oname	autoscan
-%define	daemon	agent
-%define version 1.01
-%define release %mkrel 3
+%define rname AutoScan
 
-Name:           %{name} 
 Summary:        Utility for network exploration (Samba,Nessus client)
-Version:        %{version} 
-Release: 	%{release}
-Source0:        http://autoscan.fr/%{name}-%{version}.tar.bz2
-Patch0:		Autoscan-x86_64-build-fix.patch
-URL:            http://autoscan.fr
-Group:		Networking/Other
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot 
+Name:           autoscan
+Version:        1.01
+Release: 	%mkrel 4
 License:        GPLv2
+Group:		Networking/Other
+URL:            http://autoscan.fr
+Source0:        http://autoscan.fr/%{rname}-%{version}.tar.bz2
+Patch0:		Autoscan-x86_64-build-fix.patch
 BuildRequires:  libsmbclient-devel
 BuildRequires:  gnomeui2-devel
 BuildRequires:  libxml2-devel
@@ -32,7 +27,10 @@ BuildRequires:  vte-devel
 BuildRequires:  desktop-file-utils
 Requires:       samba-client
 Requires:       mozilla-firefox
-Requires:       AutoScan-agent
+Requires:       %{name}-agent
+Provides:	%{rname} = %{version}
+Obsoletes:	%{rname}
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot 
 
 %description
 AutoScan is an application designed to explore and to manage your network. 
@@ -40,12 +38,16 @@ Entire subnets can be scanned simultaneously without human intervention.
 It features OS detection, automatic network discovery, a port scanner, 
 a Samba share browser, and the ability to save the network state.
 
-%package 	%{daemon}
-Group: 		Networking/Other
+%package 	agent
 Summary: 	AutoScan daemon
-Provides: 	%name = %version-%release
+Group: 		Networking/Other
+Provides: 	%{name} = %{version}-%{release}
+Provides:	%{rname} = %{version}
+Obsoletes:	%{rname}
+Provides:	%{rname}-agent = %{version}
+Obsoletes:	%{rname}-agent
 
-%description 	%{daemon}
+%description 	agent
 Scans network in the background
 
 
@@ -63,31 +65,31 @@ Scans network in the background
 rm -rf %{buildroot}
 
 #Daemon install
-install -d %{buildroot}/usr/sbin/
-install -d %{buildroot}/etc/rc.d/init.d/
-install -m755 src/AutoScan_Agent/AutoScan_Agent %{buildroot}/usr/sbin/
-install -m755 init.d/autoscan_mandriva %{buildroot}/etc/rc.d/init.d/autoscan
+install -d %{buildroot}%{_sbindir}/
+install -d %{buildroot}%{_initrddir}/
+install -m755 src/AutoScan_Agent/AutoScan_Agent %{buildroot}%{_sbindir}/
+install -m755 init.d/autoscan_mandriva %{buildroot}%{_initrddir}/autoscan
 
 #Gui install
-install -d %{buildroot}/usr/share/doc/AutoScan/
-install -d %{buildroot}/usr/share/pixmaps/AutoScan/
-install -d %{buildroot}/usr/share/apps/AutoScan/
-install -d %{buildroot}/usr/lib/menu/
-install -d %{buildroot}/usr/bin/
-install -d %{buildroot}/usr/share/icons/
-install -d %{buildroot}/usr/share/sounds/AutoScan/
-install -d %{buildroot}/usr/share/applications/
+install -d %{buildroot}%{_datadir}/doc/AutoScan/
+install -d %{buildroot}%{_datadir}/pixmaps/AutoScan/
+install -d %{buildroot}%{_datadir}/apps/AutoScan/
+install -d %{buildroot}%{_libdir}/menu/
+install -d %{buildroot}%{_bindir}/
+install -d %{buildroot}%{_datadir}/icons/
+install -d %{buildroot}%{_datadir}/sounds/AutoScan/
+install -d %{buildroot}%{_datadir}/applications/
 
 pwd
-install -m755 src/AutoScan/AutoScan_Network_Gui %{buildroot}/usr/bin/
-install -m755 Script/* %{buildroot}/usr/bin/
-cp -R usr/* %{buildroot}/usr/
+install -m755 src/AutoScan/AutoScan_Network_Gui %{buildroot}%{_bindir}/
+install -m755 Script/* %{buildroot}%{_bindir}/
+cp -R usr/* %{buildroot}%{prefix}/
 
 #file listed twice
-rm %{buildroot}/usr/share/doc/AutoScan/copyright
+rm %{buildroot}%{_datadir}/doc/AutoScan/copyright
 
 #drop old debian menu included in tarball
-rm -rf %{buildroot}/usr/lib/menu
+rm -rf %{buildroot}%{_libdir}/menu
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
@@ -96,32 +98,22 @@ desktop-file-install --vendor="" \
   --add-category="X-MandrivaLinux-System-Configuration-Networking" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
 
-%clean
-rm -rf %{buildroot}
-
-
-%post %{daemon}
-%_post_service %{oname}
-
-
-%postun %{daemon}
-%_preun_service %{oname}
-
-
 %post
 export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
 %post_install_gconf_schemas %{name}
 %update_menus
 
-
 %postun
 %clean_menus
 
+%post agent
+%_post_service %{name}
 
-%files %{daemon}
-%defattr(755,root,root)
-%{_sbindir}/AutoScan_Agent
-%{_initrddir}/%{oname}
+%postun agent
+%_preun_service %{name}
+
+%clean
+rm -rf %{buildroot}
 
 %files
 %defattr(755,root,root)
@@ -135,3 +127,7 @@ export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
 %{_datadir}/sounds/%{name}/*  
 %{_datadir}/applications/*.desktop
 
+%files agent
+%defattr(755,root,root)
+%{_sbindir}/AutoScan_Agent
+%{_initrddir}/%{name}
