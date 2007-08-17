@@ -83,7 +83,7 @@ install -d %{buildroot}%{_datadir}/applications/
 pwd
 install -m755 src/AutoScan/AutoScan_Network_Gui %{buildroot}%{_bindir}/
 install -m755 Script/* %{buildroot}%{_bindir}/
-cp -R usr/* %{buildroot}%{prefix}/
+cp -R usr/* %{buildroot}%{_prefix}/
 
 #file listed twice
 rm %{buildroot}%{_datadir}/doc/AutoScan/copyright
