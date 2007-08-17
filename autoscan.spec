@@ -53,7 +53,7 @@ Scans network in the background
 
 %prep  
 
-%setup -q -a 0
+%setup -q -n %{rname}-%{version} -a 0
 %patch0
 
 %build
