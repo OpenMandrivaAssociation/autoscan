@@ -1,4 +1,4 @@
-%define rname AutoScan
+%define	rname AutoScan
 
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
@@ -12,7 +12,6 @@ Patch0:		Autoscan-x86_64-build-fix.patch
 BuildRequires:  libsmbclient-devel
 BuildRequires:  gnomeui2-devel
 BuildRequires:  libxml2-devel
-BuildRequires:  zvt-devel
 BuildRequires:  openssl-devel
 BuildRequires:	libao-devel
 BuildRequires:	libvorbis-devel
@@ -94,8 +93,7 @@ rm -rf %{buildroot}%{_libdir}/menu
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --remove-key="MultipleArgs" \
-  --add-category="Settings" \
-  --add-category="X-MandrivaLinux-System-Configuration-Networking" \
+  --add-category="Network" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
 
 %post
@@ -118,13 +116,13 @@ rm -rf %{buildroot}
 %files
 %defattr(755,root,root)
 %doc AUTHORS CHANGELOG copyright
-%{_bindir}/%{name}_Network
-%{_bindir}/%{name}_Network_Gui
-%{_bindir}/%{name}_Network_Error.sh
-%{_datadir}/apps/%{name}/*
-%{_datadir}/pixmaps/%{name}/*
+%{_bindir}/%{rname}_Network
+%{_bindir}/%{rname}_Network_Gui
+%{_bindir}/%{rname}_Network_Error.sh
+%{_datadir}/apps/%{rname}/*
+%{_datadir}/pixmaps/%{rname}/*
 %{_iconsdir}/*
-%{_datadir}/sounds/%{name}/*  
+%{_datadir}/sounds/%{rname}/*  
 %{_datadir}/applications/*.desktop
 
 %files agent
