@@ -73,7 +73,6 @@ install -m755 init.d/autoscan_mandriva %{buildroot}%{_initrddir}/autoscan
 install -d %{buildroot}%{_datadir}/doc/AutoScan/
 install -d %{buildroot}%{_datadir}/pixmaps/AutoScan/
 install -d %{buildroot}%{_datadir}/apps/AutoScan/
-install -d %{buildroot}%{_libdir}/menu/
 install -d %{buildroot}%{_bindir}/
 install -d %{buildroot}%{_datadir}/icons/
 install -d %{buildroot}%{_datadir}/sounds/AutoScan/
