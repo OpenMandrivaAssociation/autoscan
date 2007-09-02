@@ -87,7 +87,7 @@ cp -R usr/* %{buildroot}%{_prefix}/
 rm %{buildroot}%{_datadir}/doc/AutoScan/copyright
 
 #drop old debian menu included in tarball
-rm -rf %{buildroot}%{_libdir}/menu
+rm -rf %{buildroot}/usr/lib/menu
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
