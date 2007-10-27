@@ -80,6 +80,7 @@ install -m755 bin/autoscan-network %{buildroot}%{_bindir}/
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
+  --remove-key='Encoding'  --remove-key='MultipleArgs' \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications usr/share/applications/*.desktop
 
 install usr/share/icons/autoscan-network.png %{buildroot}%{_iconsdir}
