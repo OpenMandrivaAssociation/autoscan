@@ -1,13 +1,13 @@
-%define	rname AutoScan
+%define	rname autoscan-network
 
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
-Version:        1.01
-Release: 	%mkrel 4
+Version:        1.10
+Release: 	%mkrel 1
 License:        GPLv2
 Group:		Networking/Other
-URL:            http://autoscan.fr
-Source0:        http://autoscan.fr/%{rname}-%{version}.tar.bz2
+URL:            http://autoscan-network.com/
+Source0:        http://autoscan.fr/download/autoscan-network-%{version}.tar.gz
 Patch0:		Autoscan-x86_64-build-fix.patch
 BuildRequires:  libsmbclient-devel
 BuildRequires:  gnomeui2-devel
@@ -25,10 +25,10 @@ BuildRequires:  glib-devel
 BuildRequires:  vte-devel
 BuildRequires:  desktop-file-utils
 Requires:       samba-client
-Requires:       mozilla-firefox
+Requires:	webclient
 Requires:       %{name}-agent
 Provides:	%{rname} = %{version}
-Obsoletes:	%{rname}
+Obsoletes:	AutoScan
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot 
 
 %description
@@ -53,10 +53,10 @@ Scans network in the background
 %prep  
 
 %setup -q -n %{rname}-%{version} -a 0
-%patch0
+#%patch0
 
 %build
-./configure mandriva
+./configure --distrib-mandriva
 %make AutoScan_Agent
 %make AutoScan_Network 
 
@@ -86,9 +86,6 @@ cp -R usr/* %{buildroot}%{_prefix}/
 #file listed twice
 rm %{buildroot}%{_datadir}/doc/AutoScan/copyright
 
-#drop old debian menu included in tarball
-rm -rf %{buildroot}/usr/lib/menu
-
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --remove-key="MultipleArgs" \
@@ -115,9 +112,9 @@ rm -rf %{buildroot}
 %files
 %defattr(755,root,root)
 %doc AUTHORS CHANGELOG copyright
-%{_bindir}/%{rname}_Network
-%{_bindir}/%{rname}_Network_Gui
-%{_bindir}/%{rname}_Network_Error.sh
+%{_bindir}/*
+%{_bindir}/*
+%{_bindir}/*
 %{_datadir}/apps/%{rname}/*
 %{_datadir}/pixmaps/%{rname}/*
 %{_iconsdir}/*
