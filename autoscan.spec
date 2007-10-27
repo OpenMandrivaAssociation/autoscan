@@ -57,8 +57,7 @@ Scans network in the background
 
 %build
 ./configure --distrib-mandriva
-%make AutoScan_Agent
-%make AutoScan_Network 
+%make
 
 %install
 rm -rf %{buildroot}
@@ -66,39 +65,40 @@ rm -rf %{buildroot}
 #Daemon install
 install -d %{buildroot}%{_sbindir}/
 install -d %{buildroot}%{_initrddir}/
-install -m755 src/AutoScan_Agent/AutoScan_Agent %{buildroot}%{_sbindir}/
-install -m755 init.d/autoscan_mandriva %{buildroot}%{_initrddir}/autoscan
+install -m755 bin/autoscan-network-daemon %{buildroot}%{_sbindir}/
+install -m755 init.d/autoscan-network-mandriva %{buildroot}%{_initrddir}/autoscan-network
 
 #Gui install
-install -d %{buildroot}%{_datadir}/doc/AutoScan/
-install -d %{buildroot}%{_datadir}/pixmaps/AutoScan/
-install -d %{buildroot}%{_datadir}/apps/AutoScan/
-install -d %{buildroot}%{_bindir}/
-install -d %{buildroot}%{_datadir}/icons/
-install -d %{buildroot}%{_datadir}/sounds/AutoScan/
+install -d %{buildroot}%{_datadir}/apps/%{rname}
+install -d %{buildroot}%{_datadir}/pixmaps/%{rname}
+install -d %{buildroot}%{_datadir}/sounds/%{rname}
+install -d %{buildroot}%{_bindir}
+install -d %{buildroot}%{_iconsdir}
 install -d %{buildroot}%{_datadir}/applications/
 
-pwd
-install -m755 src/AutoScan/AutoScan_Network_Gui %{buildroot}%{_bindir}/
-install -m755 Script/* %{buildroot}%{_bindir}/
-cp -R usr/* %{buildroot}%{_prefix}/
-
-#file listed twice
-rm %{buildroot}%{_datadir}/doc/AutoScan/copyright
+install -m755 bin/autoscan-network %{buildroot}%{_bindir}/
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
-  --remove-key="MultipleArgs" \
-  --add-category="Network" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications usr/share/applications/*.desktop
+
+install usr/share/icons/autoscan-network.png %{buildroot}%{_iconsdir}
+cp -r usr/share/pixmaps/autoscan-network/* %{buildroot}%{_datadir}/pixmaps/%{rname}/
+
+install -m644 usr/share/apps/autoscan-network/* %buildroot%_datadir/apps/%{rname}
+install -m 644 usr/share/sounds/autoscan-network/* %{buildroot}%{_datadir}/sounds/%{rname}/
+
+install -D -m644 usr/share/apps/autoscan-network/autoscan-network.schemas %buildroot%{_sysconfdir}/gconf/schemas/%{name}.schemas
 
 %post
-export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
 %post_install_gconf_schemas %{name}
 %update_menus
 
 %postun
 %clean_menus
+
+%preun
+%preun_uninstall_gconf_schemas %{name}
 
 %post agent
 %_post_service %{name}
@@ -112,16 +112,16 @@ rm -rf %{buildroot}
 %files
 %defattr(755,root,root)
 %doc AUTHORS CHANGELOG copyright
+%doc usr/share/doc/autoscan-network/*
+%{_sysconfdir}/gconf/schemas/%{name}.schemas
 %{_bindir}/*
-%{_bindir}/*
-%{_bindir}/*
-%{_datadir}/apps/%{rname}/*
-%{_datadir}/pixmaps/%{rname}/*
+%{_datadir}/apps/%{rname}
+%{_datadir}/pixmaps/%{rname}
 %{_iconsdir}/*
 %{_datadir}/sounds/%{rname}/*  
 %{_datadir}/applications/*.desktop
 
 %files agent
 %defattr(755,root,root)
-%{_sbindir}/AutoScan_Agent
-%{_initrddir}/%{name}
+%{_sbindir}/*
+%{_initrddir}/*
