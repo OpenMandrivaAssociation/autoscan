@@ -3,7 +3,7 @@
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
 Version:        1.10
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 License:        GPLv2
 Group:		Networking/Other
 URL:            http://autoscan-network.com/
@@ -102,10 +102,10 @@ install -D -m644 usr/share/apps/autoscan-network/autoscan-network.schemas %build
 %preun_uninstall_gconf_schemas %{name}
 
 %post agent
-%_post_service %{name}
+%_post_service %{name}-network
 
 %postun agent
-%_preun_service %{name}
+%_preun_service %{name}-network
 
 %clean
 rm -rf %{buildroot}
