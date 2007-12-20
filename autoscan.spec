@@ -29,6 +29,7 @@ Requires:	webclient
 Requires:       %{name}-agent
 Provides:	%{rname} = %{version}
 Obsoletes:	AutoScan
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot 
 
 %description
 AutoScan is an application designed to explore and to manage your network. 
