@@ -2,7 +2,7 @@
 
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
-Version:        1.11
+Version:        1.12
 Release: 	%mkrel 1
 License:        GPLv2
 Group:		Networking/Other
@@ -112,8 +112,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(755,root,root)
-%doc AUTHORS CHANGELOG copyright
-%doc usr/share/doc/autoscan-network/*
+%doc AUTHORS CHANGELOG
 %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %{_bindir}/*
 %{_datadir}/apps/%{rname}
