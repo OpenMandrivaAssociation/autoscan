@@ -91,12 +91,16 @@ install -m 644 usr/share/sounds/autoscan-network/* %{buildroot}%{_datadir}/sound
 
 install -D -m644 usr/share/apps/autoscan-network/autoscan-network.schemas %buildroot%{_sysconfdir}/gconf/schemas/%{name}.schemas
 
+%if %mdkversion < 200900
 %post
 %post_install_gconf_schemas %{name}
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun
 %clean_menus
+%endif
 
 %preun
 %preun_uninstall_gconf_schemas %{name}
