@@ -53,6 +53,7 @@ Scans network in the background
 
 %prep  
 %setup -q -n %{rname}-%{version}
+%patch0 -p0
 
 %build
 ./configure --distrib-mandriva
