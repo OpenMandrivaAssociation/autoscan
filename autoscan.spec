@@ -28,7 +28,7 @@ Requires:       samba-client
 Requires:	webclient
 Requires:       %{name}-agent
 Provides:	%{rname} = %{version}
-Obsoletes:	AutoScan
+Obsoletes:	AutoScan < %version
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot 
 
 %description
@@ -45,6 +45,7 @@ Provides:	%{rname} = %{version}
 Obsoletes:	%{rname}
 Provides:	%{rname}-agent = %{version}
 Obsoletes:	%{rname}-agent
+Obsoletes;	AutoScan-agent < %version
 
 %description 	agent
 Scans network in the background
