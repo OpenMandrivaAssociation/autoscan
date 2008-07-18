@@ -52,11 +52,11 @@ Scans network in the background
 
 
 %prep  
-%setup -q
+%setup -q -n %{rname}-%{version}
 
 %build
 ./configure --distrib-mandriva
-%make
+%make FLAGS="%{optflags} %{ldflags}" OPTIONS_COMPILE="%{optflags} %{ldflags}"
 
 %install
 rm -rf %{buildroot}
