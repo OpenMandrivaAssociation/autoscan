@@ -45,16 +45,14 @@ Provides:	%{rname} = %{version}
 Obsoletes:	%{rname}
 Provides:	%{rname}-agent = %{version}
 Obsoletes:	%{rname}-agent
-Obsoletes;	AutoScan-agent < %version
+Obsoletes:	AutoScan-agent < %version
 
 %description 	agent
 Scans network in the background
 
 
 %prep  
-
-%setup -q -n %{rname}-%{version} -a 0
-#%patch0
+%setup -q
 
 %build
 ./configure --distrib-mandriva
