@@ -58,7 +58,7 @@ Scans network in the background
 
 %build
 ./configure --distrib-mandriva
-%make FLAGS="%{optflags} %{ldflags}" OPTIONS_COMPILE="%{optflags} %{ldflags}"
+%make FLAGS="%{optflags} %{ldflags}" OPTIONS_COMPILE="%{optflags} %{?ldflags}"
 
 %install
 rm -rf %{buildroot}
