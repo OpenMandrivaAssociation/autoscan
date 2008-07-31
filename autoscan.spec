@@ -9,6 +9,7 @@ Group:		Networking/Other
 URL:            http://autoscan-network.com/
 Source0:        http://autoscan.fr/download/autoscan-network-%{version}.tar.gz
 Patch0:		Autoscan-x86_64-build-fix.patch
+Patch1:		autoscan-network-1.27-disable-samba.patch
 BuildRequires:  gnomeui2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
@@ -53,6 +54,7 @@ Scans network in the background
 %prep  
 %setup -q -n %{rname}-%{version}
 %patch0 -p0
+%patch1 -p0
 
 %build
 ./configure --distrib-mandriva
