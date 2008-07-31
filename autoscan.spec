@@ -2,15 +2,13 @@
 
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
-Version:        1.26
-Release: 	%mkrel 3
+Version:        1.27
+Release: 	%mkrel 1
 License:        GPLv2
 Group:		Networking/Other
 URL:            http://autoscan-network.com/
 Source0:        http://autoscan.fr/download/autoscan-network-%{version}.tar.gz
 Patch0:		Autoscan-x86_64-build-fix.patch
-# require samba < 3.2.0 to avoid shipping GPLv2 vs GPLv3
-BuildRequires:  libsmbclient-devel < 3.2.0
 BuildRequires:  gnomeui2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
