@@ -3,11 +3,12 @@
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
 Version:        1.27
-Release: 	%mkrel 1
-License:        GPLv2
+Release: 	%mkrel 2
+License:        GPLv2+
 Group:		Networking/Other
 URL:            http://autoscan-network.com/
 Source0:        http://autoscan.fr/download/autoscan-network-%{version}.tar.gz
+Source1:	autoscan-network.init
 Patch0:		Autoscan-x86_64-build-fix.patch
 Patch1:		autoscan-network-1.27-disable-samba.patch
 BuildRequires:  gnomeui2-devel
@@ -67,7 +68,7 @@ rm -rf %{buildroot}
 install -d %{buildroot}%{_sbindir}/
 install -d %{buildroot}%{_initrddir}/
 install -m755 bin/autoscan-network-daemon %{buildroot}%{_sbindir}/
-install -m755 init.d/autoscan-network-mandriva %{buildroot}%{_initrddir}/autoscan-network
+install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/autoscan-network
 
 #Gui install
 install -d %{buildroot}%{_datadir}/apps/%{rname}
