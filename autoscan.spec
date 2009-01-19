@@ -2,15 +2,15 @@
 
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
-Version:        1.27
-Release: 	%mkrel 2
+Version:        1.41
+Release: 	%mkrel 1
 License:        GPLv2+
 Group:		Networking/Other
 URL:            http://autoscan-network.com/
 Source0:        http://autoscan.fr/download/autoscan-network-%{version}.tar.gz
 Source1:	autoscan-network.init
-Patch0:		Autoscan-x86_64-build-fix.patch
-Patch1:		autoscan-network-1.27-disable-samba.patch
+Patch0:		autoscan-1.41-x86_64-build-fix.patch
+#Patch1:		autoscan-network-1.27-disable-samba.patch
 BuildRequires:  gnomeui2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
@@ -25,18 +25,20 @@ BuildRequires:  gnome-vfs2-devel
 BuildRequires:  glib-devel
 BuildRequires:  vte-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:	libgnomeui-devel
 Requires:       samba-client
 Requires:	webclient
 Requires:       %{name}-agent
 Provides:	%{rname} = %{version}
-Obsoletes:	AutoScan < %version
+Obsoletes:	AutoScan
+Provides:	AutoScan
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot 
 
 %description
 AutoScan is an application designed to explore and to manage your network. 
 Entire subnets can be scanned simultaneously without human intervention. 
 It features OS detection, automatic network discovery, a port scanner, 
-a Samba share browser, and the ability to save the network state.
+and the ability to save the network state.
 
 %package 	agent
 Summary: 	AutoScan daemon
@@ -55,7 +57,7 @@ Scans network in the background
 %prep  
 %setup -q -n %{rname}-%{version}
 %patch0 -p0
-%patch1 -p0
+#%patch1 -p0
 
 %build
 ./configure --distrib-mandriva
@@ -83,7 +85,7 @@ install -m755 bin/autoscan-network %{buildroot}%{_bindir}/
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --remove-key='Encoding'  --remove-key='MultipleArgs' \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications usr/share/applications/*.desktop
+  --dir %{buildroot}%{_datadir}/applications usr/share/applications/*.desktop
 
 install usr/share/icons/autoscan-network.png %{buildroot}%{_iconsdir}
 cp -r usr/share/pixmaps/autoscan-network/* %{buildroot}%{_datadir}/pixmaps/%{rname}/
