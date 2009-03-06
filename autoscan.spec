@@ -10,7 +10,7 @@ URL:            http://autoscan-network.com/
 Source0:        http://autoscan.fr/download/autoscan-network-%{version}.tar.gz
 Source1:	autoscan-network.init
 Patch0:		autoscan-1.41-x86_64-build-fix.patch
-#Patch1:		autoscan-network-1.27-disable-samba.patch
+Patch1:		autoscan-1.41-fix-str-fmt.patch
 BuildRequires:  gnomeui2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
@@ -25,8 +25,7 @@ BuildRequires:  gnome-vfs2-devel
 BuildRequires:  glib-devel
 BuildRequires:  vte-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:	libgnomeui-devel
-Requires:       samba-client
+#Requires:       samba-client
 Requires:	webclient
 Requires:       %{name}-agent
 Provides:	%{rname} = %{version}
@@ -57,7 +56,7 @@ Scans network in the background
 %prep  
 %setup -q -n %{rname}-%{version}
 %patch0 -p0
-#%patch1 -p0
+%patch1 -p0
 
 %build
 ./configure --distrib-mandriva
