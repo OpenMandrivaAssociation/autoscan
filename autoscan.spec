@@ -1,37 +1,36 @@
 %define	rname autoscan-network
 
-Summary:        Utility for network exploration (Samba,Nessus client)
-Name:           autoscan
-Version:        1.50
+Summary:	Utility for network exploration (Samba,Nessus client)
+Name:		autoscan
+Version:	1.50
 Release: 	%mkrel 1
 License:        GPLv2+
 Group:		Networking/Other
-URL:            http://autoscan-network.com/
+URL:		http://autoscan-network.com/
 Source0:	http://autoscan.fr/download_files/autoscan-network-%{version}.tar.gz
 Source1:	autoscan-network.init
 Patch0:		autoscan-1.41-x86_64-build-fix.patch
 Patch1:		autoscan-1.50-fix-str-fmt.patch
-BuildRequires:  gnomeui2-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  openssl-devel
+BuildRequires:	gnomeui2-devel
+BuildRequires:	libxml2-devel
+BuildRequires:	openssl-devel
 BuildRequires:	libao-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	net-snmp-devel
-BuildRequires:  libtool
-BuildRequires:  elfutils-devel
-BuildRequires:  gtk+2-devel
-BuildRequires:  libgnome-keyring-devel
-BuildRequires:  gnome-vfs2-devel
-BuildRequires:  glib-devel
-BuildRequires:  vte-devel
-BuildRequires:  desktop-file-utils
-#Requires:       samba-client
+BuildRequires:	libtool
+BuildRequires:	elfutils-devel
+BuildRequires:	gtk+2-devel
+BuildRequires:	libgnome-keyring-devel
+BuildRequires:	gnome-vfs2-devel
+BuildRequires:	glib-devel
+BuildRequires:	vte-devel
+BuildRequires:	desktop-file-utils
 Requires:	webclient
-Requires:       %{name}-agent
+Requires:	%{name}-agent
 Provides:	%{rname} = %{version}
 Obsoletes:	AutoScan
 Provides:	AutoScan
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot 
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot 
 
 %description
 AutoScan is an application designed to explore and to manage your network. 
@@ -66,13 +65,13 @@ Scans network in the background
 %install
 rm -rf %{buildroot}
 
-#Daemon install
+# Daemon install
 install -d %{buildroot}%{_sbindir}/
 install -d %{buildroot}%{_initrddir}/
 install -m755 bin/autoscan-network-daemon %{buildroot}%{_sbindir}/
 install -m755 %{SOURCE1} %{buildroot}%{_initrddir}/autoscan-network
 
-#Gui install
+# Gui install
 install -d %{buildroot}%{_datadir}/apps/%{rname}
 install -d %{buildroot}%{_datadir}/pixmaps/%{rname}
 install -d %{buildroot}%{_datadir}/sounds/%{rname}
