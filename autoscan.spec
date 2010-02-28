@@ -25,6 +25,7 @@ BuildRequires:	gnome-vfs2-devel
 BuildRequires:	glib-devel
 BuildRequires:	vte-devel
 BuildRequires:	desktop-file-utils
+BuildRequires:	libcurl-devel
 Requires:	webclient
 Requires:	%{name}-agent
 Provides:	%{rname} = %{version}
