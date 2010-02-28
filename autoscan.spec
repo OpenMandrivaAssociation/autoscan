@@ -2,15 +2,15 @@
 
 Summary:        Utility for network exploration (Samba,Nessus client)
 Name:           autoscan
-Version:        1.41
-Release: 	%mkrel 4
+Version:        1.50
+Release: 	%mkrel 1
 License:        GPLv2+
 Group:		Networking/Other
 URL:            http://autoscan-network.com/
-Source0:        http://autoscan.fr/download/autoscan-network-%{version}.tar.gz
+Source0:	http://autoscan.fr/download_files/autoscan-network-%{version}.tar.gz
 Source1:	autoscan-network.init
 Patch0:		autoscan-1.41-x86_64-build-fix.patch
-Patch1:		autoscan-1.41-fix-str-fmt.patch
+Patch1:		autoscan-1.50-fix-str-fmt.patch
 BuildRequires:  gnomeui2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
@@ -20,7 +20,7 @@ BuildRequires:	net-snmp-devel
 BuildRequires:  libtool
 BuildRequires:  elfutils-devel
 BuildRequires:  gtk+2-devel
-BuildRequires:  gnome-keyring-devel
+BuildRequires:  libgnome-keyring-devel
 BuildRequires:  gnome-vfs2-devel
 BuildRequires:  glib-devel
 BuildRequires:  vte-devel
@@ -59,8 +59,9 @@ Scans network in the background
 %patch1 -p0
 
 %build
+%setup_compile_flags
 ./configure --distrib-mandriva
-%make FLAGS="%{optflags} %{?ldflags}" OPTIONS_COMPILE="%{optflags} %{?ldflags}"
+%make
 
 %install
 rm -rf %{buildroot}
@@ -92,7 +93,6 @@ cp -r usr/share/pixmaps/autoscan-network/* %{buildroot}%{_datadir}/pixmaps/%{rna
 install -m644 usr/share/apps/autoscan-network/* %buildroot%_datadir/apps/%{rname}
 install -m 644 usr/share/sounds/autoscan-network/* %{buildroot}%{_datadir}/sounds/%{rname}/
 
-install -D -m644 usr/share/apps/autoscan-network/autoscan-network.schemas %buildroot%{_sysconfdir}/gconf/schemas/%{name}.schemas
 
 %if %mdkversion < 200900
 %post
@@ -119,8 +119,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(755,root,root)
-%doc AUTHORS CHANGELOG
-%{_sysconfdir}/gconf/schemas/%{name}.schemas
+%doc AUTHORS 
 %{_bindir}/*
 %{_datadir}/apps/%{rname}
 %{_datadir}/pixmaps/%{rname}
