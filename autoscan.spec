@@ -3,12 +3,15 @@
 Summary:	Utility for network exploration (Samba,Nessus client)
 Name:		autoscan
 Version:	1.50
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 License:        GPLv2+
 Group:		Networking/Other
 URL:		http://autoscan-network.com/
 Source0:	http://autoscan.fr/download_files/autoscan-network-%{version}.tar.gz
 Source1:	autoscan-network.init
+# this .xml file is missing in the tarball, and the GUI doesn't load without it
+# mdv bug #58012
+Source2:	Finger_Printing.xml
 Patch0:		autoscan-1.41-x86_64-build-fix.patch
 Patch1:		autoscan-1.50-fix-str-fmt.patch
 BuildRequires:	gnomeui2-devel
@@ -39,17 +42,17 @@ Entire subnets can be scanned simultaneously without human intervention.
 It features OS detection, automatic network discovery, a port scanner, 
 and the ability to save the network state.
 
-%package 	agent
-Summary: 	AutoScan daemon
-Group: 		Networking/Other
-Provides: 	%{name} = %{version}-%{release}
+%package	agent
+Summary:	AutoScan daemon
+Group:		Networking/Other
+Provides:	%{name} = %{version}-%{release}
 Provides:	%{rname} = %{version}
 Obsoletes:	%{rname}
 Provides:	%{rname}-agent = %{version}
 Obsoletes:	%{rname}-agent
 Obsoletes:	AutoScan-agent < %version
 
-%description 	agent
+%description	agent
 Scans network in the background
 
 
@@ -57,6 +60,8 @@ Scans network in the background
 %setup -q -n %{rname}-%{version}
 %patch0 -p0
 %patch1 -p0
+
+install -m 644 %{SOURCE2} %{_builddir}/%{rname}-%{version}/usr/share/apps/autoscan-network/
 
 %build
 %setup_compile_flags
