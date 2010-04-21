@@ -3,7 +3,7 @@
 Summary:	Utility for network exploration (Samba,Nessus client)
 Name:		autoscan
 Version:	1.50
-Release: 	%mkrel 5
+Release: 	%mkrel 6
 License:        GPLv2+
 Group:		Networking/Other
 URL:		http://autoscan-network.com/
@@ -64,9 +64,8 @@ Scans network in the background
 install -m 644 %{SOURCE2} %{_builddir}/%{rname}-%{version}/usr/share/apps/autoscan-network/
 
 %build
-%setup_compile_flags
 ./configure --distrib-mandriva
-%make
+%make OPTIONS_COMPILE="%optflags %ldflags"
 
 %install
 rm -rf %{buildroot}
