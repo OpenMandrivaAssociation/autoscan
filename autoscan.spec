@@ -3,7 +3,7 @@
 Summary:	Utility for network exploration (Samba,Nessus client)
 Name:		autoscan
 Version:	1.50
-Release: 	%mkrel 6
+Release: 	%mkrel 7
 License:        GPLv2+
 Group:		Networking/Other
 URL:		http://autoscan-network.com/
@@ -91,7 +91,7 @@ desktop-file-install --vendor="" \
   --remove-key='Encoding'  --remove-key='MultipleArgs' \
   --dir %{buildroot}%{_datadir}/applications usr/share/applications/*.desktop
 
-install usr/share/icons/autoscan-network.png %{buildroot}%{_iconsdir}
+install -m644 usr/share/icons/autoscan-network.png %{buildroot}%{_iconsdir}
 cp -r usr/share/pixmaps/autoscan-network/* %{buildroot}%{_datadir}/pixmaps/%{rname}/
 
 install -m644 usr/share/apps/autoscan-network/* %buildroot%_datadir/apps/%{rname}
