@@ -3,7 +3,7 @@
 Summary:	Utility for network exploration (Samba,Nessus client)
 Name:		autoscan
 Version:	1.50
-Release: 	%mkrel 7
+Release: 	%mkrel 8
 License:        GPLv2+
 Group:		Networking/Other
 URL:		http://autoscan-network.com/
