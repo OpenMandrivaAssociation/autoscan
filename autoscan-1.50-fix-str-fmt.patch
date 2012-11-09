@@ -1,0 +1,33 @@
+--- src/autoscan-network-daemon/Quit.c	2010-01-19 20:24:54.000000000 +0100
++++ src/autoscan-network-daemon/Quit.c.new	2010-02-28 18:40:51.000000000 +0100
+@@ -141,7 +141,7 @@
+ 		sleep(1);
+ 		printf("__2(%s)\n", Liste_Categorie[pCle->Categorie].Info);
+ 		sleep(1);
+-		printf("__3(%s)\n", Liste_Categorie[pCle->Categorie].Info);
++		printf("__3(%s)\n", "%s", Liste_Categorie[pCle->Categorie].Info);
+ 		sleep(1);
+ 		printf("On ne devrait jamais arriver ici\n");
+ 		exit(-1);
+--- src/autoscan-network-daemon/Network/Reseau.c	2010-01-19 20:24:54.000000000 +0100
++++ src/autoscan-network-daemon/Network/Reseau.c.new	2010-02-28 18:44:13.000000000 +0100
+@@ -93,7 +93,7 @@
+ 		DEBUG_ERROR( "%s\nSocket ouvert[%d]  Thread[%d][%d]\n Nb equipement (%d)", strerror (errno), Get_Nb_Socket_Ouvert(), Info_Demarrage.Nb_Thread_Max, Info_Demarrage.Nb_Thread_Max - Valeur_Semaphore (&Sem_GList_Liste_Thread_Scan), g_list_length (GList_Equipement));
+ 	}
+ 	ifr.ifr_addr.sa_family = AF_INET;
+-	sprintf (ifr.ifr_name, Info_Demarrage.Interface);
++	sprintf (ifr.ifr_name, "%s", Info_Demarrage.Interface);
+ 	if (ioctl (Socket, SIOCGIFHWADDR, &ifr) == -1) {
+ 		DEBUG_ERROR("%s\nSocket ouvert[%d]  Thread[%d][%d]\n Nb equipement (%d)", strerror (errno), Get_Nb_Socket_Ouvert(), Info_Demarrage.Nb_Thread_Max, Info_Demarrage.Nb_Thread_Max - Valeur_Semaphore (&Sem_GList_Liste_Thread_Scan), g_list_length (GList_Equipement));
+ 	}
+--- src/autoscan-network/Quit.c	2010-01-19 20:24:51.000000000 +0100
++++ src/autoscan-network/Quit.c.new	2010-02-28 19:00:19.000000000 +0100
+@@ -141,7 +141,7 @@
+ #else
+ 	Message_Erreur = g_strdup("Segfault : Invalid memory reference");	
+ #endif
+-	Win_Demande_User = gtk_message_dialog_new (GTK_WINDOW (window_root), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, Message_Erreur);
++	Win_Demande_User = gtk_message_dialog_new (GTK_WINDOW (window_root), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, "%s", Message_Erreur);
+ 	gtk_dialog_run (GTK_DIALOG (Win_Demande_User));
+ 	gtk_widget_hide(Win_Demande_User);
+ 	MYFREE(Message_Erreur);

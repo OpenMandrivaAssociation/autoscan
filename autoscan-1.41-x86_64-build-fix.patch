@@ -1,0 +1,13 @@
+--- configure.orig	2009-01-13 11:44:06.000000000 +0100
++++ configure	2009-01-19 16:01:32.000000000 +0100
+@@ -228,8 +228,8 @@
+ 		PROC_OPTS="-march=$PROC";;
+ 	x86_64)
+ 		ARCH="ARCH_x86_64"
+-		PROC_OPTS=""
+-		OPTIONS="-m64 $OPTIONS";;
++		PROC_OPTS="-march=x86-64"
++		OPTIONS="$OPTIONS";;
+ 	mips*)
+ 		ARCH="ARCH_MIPS"
+ 		PROC_OPTS="-march=$PROC";;
