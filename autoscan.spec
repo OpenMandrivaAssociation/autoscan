@@ -6,7 +6,7 @@ Version:	1.50
 Release: 	%mkrel 8
 License:        GPLv2+
 Group:		Networking/Other
-URL:		http://autoscan-network.com/
+URL:		https://autoscan-network.com/
 Source0:	http://autoscan.fr/download_files/autoscan-network-%{version}.tar.gz
 Source1:	autoscan-network.init
 # this .xml file is missing in the tarball, and the GUI doesn't load without it
