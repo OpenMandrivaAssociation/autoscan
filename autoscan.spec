@@ -14,6 +14,11 @@ Source1:	autoscan-network.init
 Source2:	Finger_Printing.xml
 Patch0:		autoscan-1.41-x86_64-build-fix.patch
 Patch1:		autoscan-1.50-fix-str-fmt.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	gnomeui2-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	openssl-devel
